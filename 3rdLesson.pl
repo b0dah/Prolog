@@ -14,7 +14,7 @@ minElement(M, [M]):-!.
 minElement(M, [H | T]) :-  minElement(M1, T), H =< M1, !, M is H.
 minElement(M, [H|T]) :- minElement(M, T). 
 
-% HMWRK: Минимум итеративно: Минимум первых двух сравниваем со вторым Ю, третьим и т.д.
+% HMWRK: Минимум итеративно: Минимум первых двух сравниваем со вторым, третьим и т.д.
 
 % reverse list [1,2,3,4] -> [4,3,2,1]
 reverse(X, Y) :- reverse(X, [], Y). % from x to [] all wrote
@@ -37,6 +37,62 @@ customDelete([X | Y], T, [X | Z]) :- delete(Y, T, Z).
 append([], X, X):- !.
 append([X1|Y1], Z, [X1|Y2]) :- append(Y1, Z, Y2).
 
+%=========================================================================
 % HMWRK: 1) Написать предикат, который истинен, если в списке нет повторяющихся эдементов
 % 2) Объединить два отсортированнызх списка в один отсортированный список
 % 3) Длина списка
+
+%length of the list
+length1([], 0):- !.
+length1([H|T], L):- length1(T, L1), L is L1 + 1.
+
+% iterational min
+minInTheList([ F, S | Tail], M):-
+	F > S, !,
+	minInTheList([S | Tail], M).
+minInTheList([ F, S | Tail], M) :- minInTheList( [F|Tail], M).
+
+% Repeating Element
+hasRepeat([H | Tail] ):- isMember(H, Tail), !.
+hasRepeat([H | Tail]) :- hasRepeat(Tail).
+
+% Merge sorted ones
+mergeSortedOnes([], S, S) :- !.
+mergeSortedOnes(F, [], F) :- !.
+
+mergeSortedOnes([H1 | T1], [ H2 | T2 ], [H1 | ResTail] ) :-
+	H1 < H2, !, mergeSortedOnes( T1, [H2 | T2], ResTail ).
+mergeSortedOnes([H1 | T1], [ H2 | T2 ], [H2 | ResTail] ) :-
+	 mergeSortedOnes( [H1 | T1], T2, ResTail ).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
