@@ -13,7 +13,7 @@ isMember(X, [_|Y]):- isMember(X, Y).
 minElement(M, [M]):-!.
 minElement(M, [H | T]) :-  minElement(M1, T), H =< M1, !, M is H.
 minElement(M, [H|T]) :- minElement(M, T). 
-
+ 
 % HMWRK: Минимум итеративно: Минимум первых двух сравниваем со вторым, третьим и т.д.
 
 % reverse list [1,2,3,4] -> [4,3,2,1]
