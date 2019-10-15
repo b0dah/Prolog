@@ -4,30 +4,36 @@
 
 isDivider(N, D):- M is mod(N, D), M = 0.
 
-
-
 % Merge sorted ones
-mergeSortedOnes([], S, S) :- !.
-mergeSortedOnes(F, [], F) :- !.
+mergeSortedOnesWithoutDup([], S, S) :- !.
+mergeSortedOnesWithoutDup(S, [], S) :- !.
 
-mergeSortedOnes([H1 | T1], [ H2 | T2 ], [H1 | ResTail] ) :-
-	H1 < H2, !, mergeSortedOnes( T1, [H2 | T2], ResTail ).
-mergeSortedOnes([H1 | T1], [ H2 | T2 ], [H2 | ResTail] ) :-
-	 mergeSortedOnes( [H1 | T1], T2, ResTail ).
+
+mergeSortedOnesWithoutDup([H | T1], [ H | T2 ], [H | ResTail] ):-!,
+mergeSortedOnesWithoutDup(T1,T2,ResTail).
+
+mergeSortedOnesWithoutDup([H1 | T1], [ H2 | T2 ], [H1 | ResTail] ) :-
+	H1 < H2, !, mergeSortedOnesWithoutDup( T1, [H2 | T2], ResTail ).	
+
+mergeSortedOnesWithoutDup([H1 | T1], [ H2 | T2 ], [H2 | ResTail] ) :-
+	 mergeSortedOnesWithoutDup( T2,[H1 | T1], ResTail ).
+
+
 
 % Collect Dividers for particular Integer 
 collectDivisors(Numb, Divisors) :- collector(Numb, 1, Divisors).
-collector(Numb, Current, Divisors) :- Lim is (Numb div 2), Current > Lim, ! .
-collector(Numb, Current, Divisors) :- isDivider(Numb, Current), !, 
+collector(Numb, Current, []) :- Lim is (Numb div 2), Current > Lim, ! .
+collector(Numb, Current, [Current|T]) :- isDivider(Numb, Current), !, 
 		%print(Current), Next is Current+1, collector(Numb, Next).
-		append([Current], Divisors, NewDivisors),
-		Next is Current+1, collector(Numb, Next, NewDivisors).
+		%append([Current], Divisors, NewDivisors),
+		Next is Current+1, collector(Numb, Next, T).
 collector(Numb, Current, Divisors) :- Next is Current+1, collector(Numb, Next, Divisors).
 
 % Collect Divisors for List of Integers
-listIterator([], Response) :- !. 
-listIterator([H|R], Response) :- collectDivisors(H, Divisors), mergeSortedOnes(Divisors, Response, NewResponse),
-		listIterator(R, NewResponse).
+listIterator([],[]) :- !. 
+listIterator([H|R], NewResponse) :- collectDivisors(H, H_Divisors), listIterator(R, R_Divisors), 
+			mergeSortedOnesWithoutDup(H_Divisors, R_Divisors, NewResponse).
+
 
 
 
