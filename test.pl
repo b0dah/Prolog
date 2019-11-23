@@ -20,3 +20,7 @@ atomicsToString(S) :- atomics_to_string([1,2,3], S). % plus
 toChars(L) :- string_chars("xxx", L). % plus
 
 len(L) :- string_length("xox", L). % plus
+
+
+jopa :- 0=0.
+not_jopa :- not(jopa).

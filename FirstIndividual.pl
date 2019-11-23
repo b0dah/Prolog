@@ -5,18 +5,18 @@
 isDivider(N, D):- M is mod(N, D), M = 0.
 
 % Merge sorted ones
-mergeSortedOnesWithoutDup([], S, S) :- !.
-mergeSortedOnesWithoutDup(S, [], S) :- !.
+mergeSortedOnes([], S, S) :- !.
+mergeSortedOnes(S, [], S) :- !.
 
 
-mergeSortedOnesWithoutDup([H | T1], [ H | T2 ], [H | ResTail] ):-!,
-mergeSortedOnesWithoutDup(T1,T2,ResTail).
+mergeSortedOnes([H | T1], [ H | T2 ], [H | ResTail] ):-!,
+mergeSortedOnes(T1,T2,ResTail).
 
-mergeSortedOnesWithoutDup([H1 | T1], [ H2 | T2 ], [H1 | ResTail] ) :-
-	H1 < H2, !, mergeSortedOnesWithoutDup( T1, [H2 | T2], ResTail ).	
+mergeSortedOnes([H1 | T1], [ H2 | T2 ], [H1 | ResTail] ) :-
+	H1 < H2, !, mergeSortedOnes( T1, [H2 | T2], ResTail ).	
 
-mergeSortedOnesWithoutDup([H1 | T1], [ H2 | T2 ], [H2 | ResTail] ) :-
-	 mergeSortedOnesWithoutDup( T2,[H1 | T1], ResTail ).
+mergeSortedOnes([H1 | T1], [ H2 | T2 ], [H2 | ResTail] ) :-
+	 mergeSortedOnes( T2,[H1 | T1], ResTail ).
 
 
 
@@ -32,21 +32,24 @@ collector(Numb, Current, Divisors) :- Next is Current+1, collector(Numb, Next, D
 % Collect Divisors for List of Integers
 listIterator([],[]) :- !. 
 listIterator([H|R], NewResponse) :- collectDivisors(H, H_Divisors), listIterator(R, R_Divisors), 
-			mergeSortedOnesWithoutDup(H_Divisors, R_Divisors, NewResponse).
+			mergeSortedOnes(H_Divisors, R_Divisors, NewResponse).
+
+
+
+
+
+
+
+
+
 
 
 
 
 % ######### ADDITIONAL STUFF ##########
-
 start(End, List) :- cycle(1, End, [], List).
 cycle(I, End, Current, List) :- I > End, !, append([], Current, List).
 cycle(I, End, Current, List) :- append([I], Current, NewCurrent), I1 is I+1, cycle(I1, End, NewCurrent, List).
-
-
-
-
-
 
 
 
@@ -58,13 +61,13 @@ forStatememt(I, End) :- I < End, isDivider(I, 2),!,
 forStatememt(I, End) :- I1 is I+1, forStatememt(I1, End) .
 
 
-% min member of the List
+% min isMember of the List
 minElement(M, [M]):-!.
 minElement(M, [H | T]) :-  minElement(M1, T), H =< M1, !, M is H.
 minElement(M, [H|T]) :- minElement(M, T). 
 
 
-compute(X, R):- R is X div 2.
+compute(First, R):- R is First div 2.
 
 %collectDividers(Numb, Dividers) :- collector(Numb, []/*Dividers*/, 1).
 %collector(Numb, NewDividers, Current) :- 
