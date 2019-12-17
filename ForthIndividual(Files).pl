@@ -21,7 +21,7 @@ writefacts:-
 %	которые встречаются в файле ровно один раз в том порядке, в котором они встретились в строке.
 
 %divide into a list of strings
-fileToListOfStrings(L) :- seen, see('/Users/bodah/dev/prolog/TextFiles/input.txt'), readStringsFromFile([],[],L), seen.
+fileToListOfStrings(L) :- seen, see('/Users/bodah/dev/prolog/TextFiles/input1.txt'), readStringsFromFile([],[],L), seen.
 	
 readStringsFromFile(T,R,L) :- get0(X), 
 (X<0, (T=[], L=R; name(T1, T), append(R, [T1], L)), ! ;
@@ -32,7 +32,7 @@ readStringsFromFile(T,R,L) :- get0(X),
  	X>0, append(T, [X], T1), readStringsFromFile(T1, R, L), !).
 
 %divide into a list of words
-fileToListOfWords(L) :- seen, see('/Users/bodah/dev/prolog/TextFiles/input.txt'), readWords([],[],L), seen.	
+fileToListOfWords(L) :- seen, see('/Users/bodah/dev/prolog/TextFiles/input1.txt'), readWords([],[],L), seen.	
 readWords(T,R,L) :- get0(X), 
 (X<0, (T=[], L=R; name(T1, T), append(R, [T1], L)), ! ;
 
@@ -53,10 +53,10 @@ counter(Occ, [H|T], Count, Res) :- countOccurrences(Occ, H, HeadContains), NewCo
 	
 
 % delete 4 times occurrences
-filter4x(L,R):-delete4x(L, [], R).
-delete4x([], Res, Res) :- !.
-delete4x([H|T], Res, Ans) :- countOccurrences(H, T, C), C>2, delete([H|T], H, Res1), !, delete4x(Res1, Res, Ans).
-delete4x([H|T], Res, Ans) :- append(Res,[H],Res1), delete4x(T, Res1, Ans). 
+%filter4x(L,R):-delete4x(L, [], R).
+%delete4x([], Res, Res) :- !.
+%delete4x([H|T], Res, Ans) :- countOccurrences(H, T, C), C>2, delete([H|T], H, Res1), !, delete4x(Res1, Res, Ans).
+%delete4x([H|T], Res, Ans) :- append(Res,[H],Res1), delete4x(T, Res1, Ans). 
 
 % удаляет заданный элемент в двумерном массиве | works!
 deleteCertain(_, [], []) :- !.
@@ -67,16 +67,25 @@ divideInto2DimsList([], []) :- !.
 divideInto2DimsList([H|R], [L|TwoDimList]) :- split_string(H, " ", "",L), divideInto2DimsList(R, TwoDimList). % works
 
 % delete 4 times occurences in the 2 dim list <------------
-deleteExtra(L, R) :-delete4xInThDimList(L, [], R).
-delete4xInThDimList([], Res, Res) :- !.
-delete4xInThDimList([[]|R], Res, Ans) :- delete4xInThDimList(R, Res, Ans).
-delete4xInThDimList([[H|R]|Rest], Res, Ans) :- countOccurrencesIn2Dims(H, [R|Rest], Count), Count>2, deleteCertain(H, [R|Rest], Deleted), !, delete4xInThDimList(Deleted, Deleted, Ans).
-delete4xInThDimList([[H|R]|Rest], Res, Ans) :- delete4xInThDimList([R|Rest], Res, Ans).
+%deleteExtra(L, R) :-delete4xInThDimList(L, [], R).
+%delete4xInThDimList([], Res, Res) :- !.
+%delete4xInThDimList([[]|R], Res, Ans) :- delete4xInThDimList(R, Res, Ans).
+%delete4xInThDimList([[H|R]|Rest], Res, Ans) :- countOccurrencesIn2Dims(H, [R|Rest], Count), Count>2, deleteCertain(H, [R|Rest], Deleted), !, delete4xInThDimList(Deleted, Deleted, Ans).
+%delete4xInThDimList([[H|R]|Rest], Res, Ans) :- delete4xInThDimList([R|Rest], Res, Ans).
+%
+%%test
+%rmv(L,R) :- remove2(L, [], R).
+%remove2([], R, R):- !.
+%remove2([H|Rest],Res,A):- filter4x(H,Filtered), append(Filtered, Res,NewRes), remove2(Rest, NewRes, A).
 
-%test
-rmv(L,R) :- remove2(L, [], R).
-remove2([], R, R):- !.
-remove2([H|Rest],Res,A):- filter4x(H,Filtered), append(Filtered, Res,NewRes), remove2(Rest, NewRes, A).
+% удалить из заданного двумерного списка те, которые входят во множество.
+%deleteSetElsFromList(Set,List,Ans):- del(Set,List, [], Ans).
+%del([], List, Ans, Ans) :- !.
+%del([H|R], TwoDimList, Res, Ans) :- deleteCertain(H, TwoDimList, New2DList), del(R, TwoDimList,New2DList,Ans).
+%deleteSetElsFromList(Set,List,Ans):- del(Set,List, Ans).
+deleteSetElsFromList([], Ans, Ans) :- !.
+deleteSetElsFromList([H|R], TwoDimList, Res) :- deleteCertain(H, TwoDimList, New2DList), deleteSetElsFromList(R, New2DList,Res).
+
 
 %/////// append 3x occ //////////////
 %append3xOccurrences(L,R) :- app(L, )
@@ -100,26 +109,29 @@ toString([],Text,Text) :- !.
 toString([H|R],Text, Ans) :- atomics_to_string(H, " ", String), string_concat(Text,String,Concated), string_concat(Concated, "\n", NewText), toString(R, NewText, Ans).
 
 %write stringed list to file
-writeTextToFile(Text):- open('/Users/bodah/dev/prolog/TextFiles/output.txt',write,Out),
+writeTextToFile(Text):- open('/Users/bodah/dev/prolog/TextFiles/output1.txt',write,Out),
 	write(Out,Text),
 	close(Out). 
 
 % /////////// MAIN //////////////
-%solve(Res) :- fileToListOfStrings(L), divideInto2DimsList(L, TwoDimL), deleteExtra(TwoDimL, Res).%countOccurrencesIn2Dims("Line", TwoDimL, Res), .%delete4x(L, [], Res).
 
-show(Res) :- fileToListOfStrings(L), divideInto2DimsList(L, Res). 
+solve :-  
+%	1
+	fileToListOfWords(ListOfWords), include(quadruple(ListOfWords), ListOfWords, WordsToDelete), list_to_set(WordsToDelete, SetToDelete),
+	atomsListToListOfStrings(SetToDelete, StringSetToDelete), 
 
-solve(Text) :- fileToListOfStrings(L), divideInto2DimsList(L, TwoDimL), 
-	twoDimsAppend(TwoDimL, AppendedList), twoDimListToString(AppendedList, Text), writeTextToFile(Text).
-
-
-
-
-
-
+	fileToListOfStrings(L), divideInto2DimsList(L, TwoDimL), 
+	% удалить из заданного двумерного списка те, которые входят во множество.
+	deleteSetElsFromList(StringSetToDelete, TwoDimL, NewTwoDimList),
+%	2
+	twoDimsAppend(NewTwoDimList, AppendedList), twoDimListToString(AppendedList, Text), writeTextToFile(Text).
 
 %/////////////// SUPERPOS ////////////////
+quadruple(L,H) :- countOccurrences(H, L, C), C>3.
 
+atomsListToListOfStrings(L,LS) :- toListOfStrings(L,[],LS).
+toListOfStrings([],Ans,Ans):- !.
+toListOfStrings([H|R],Cur,Ans) :- text_to_string(H,String), append(Cur,[String],ListOfStrings), toListOfStrings(R,ListOfStrings,Ans). 
 
 %/////////////////// LEGACY ////////////////////////
 %

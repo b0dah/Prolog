@@ -1,0 +1,4 @@
+ooo   ooo
+000 000
+aaa bbb aaa ccc bbb ccc
+Pppp Pppp
