@@ -1,1 +1,2 @@
-Age(Peter,30)Skin(Smith,Black).
+Age(Peter,30)
+Age(Jupeter,30)
