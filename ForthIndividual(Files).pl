@@ -1,4 +1,3 @@
-
 readda :- 
 	open('/Users/bodah/dev/prolog/TextFiles/input.txt',read,In),
 	repeat,
@@ -95,14 +94,30 @@ app2([H|R], Collected, Ans) :- oneDimAppend(H,NewH), append(Collected, [NewH] ,N
 
 %////////// write to file /////////
 
-one dim list to 
+%two dims list to Strings
+twoDimListToString(L,Text) :- toString(L,"", Text). 
+toString([],Text,Text) :- !.
+toString([H|R],Text, Ans) :- atomics_to_string(H, " ", String), string_concat(Text,String,Concated), string_concat(Concated, "\n", NewText), toString(R, NewText, Ans).
 
-
+%write stringed list to file
+writeTextToFile(Text):- open('/Users/bodah/dev/prolog/TextFiles/output.txt',write,Out),
+	write(Out,Text),
+	close(Out). 
 
 % /////////// MAIN //////////////
-solve(Res) :- fileToListOfStrings(L), divideInto2DimsList(L, TwoDimL), deleteExtra(TwoDimL, Res).%countOccurrencesIn2Dims("Line", TwoDimL, Res), .%delete4x(L, [], Res).
+%solve(Res) :- fileToListOfStrings(L), divideInto2DimsList(L, TwoDimL), deleteExtra(TwoDimL, Res).%countOccurrencesIn2Dims("Line", TwoDimL, Res), .%delete4x(L, [], Res).
 
 show(Res) :- fileToListOfStrings(L), divideInto2DimsList(L, Res). 
+
+solve(Text) :- fileToListOfStrings(L), divideInto2DimsList(L, TwoDimL), 
+	twoDimsAppend(TwoDimL, AppendedList), twoDimListToString(AppendedList, Text), writeTextToFile(Text).
+
+
+
+
+
+
+
 %/////////////// SUPERPOS ////////////////
 
 
