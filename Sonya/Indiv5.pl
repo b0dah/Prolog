@@ -1,13 +1,13 @@
-%пятая идивидуальная
-run:- consult('C:/Users/Sofia/Desktop/Новая папка/SWI-Prolog/Indv5/mydata.pl'),
+%РїСЏС‚Р°СЏ РёРґРёРІРёРґСѓР°Р»СЊРЅР°СЏ
+run:- consult('/Users/bodah/dev/Prolog/Sonya/mydata.pl'),
     retractall(village/2),retractall(tech/2), retractall(character/3),
     menu.
 
 menu:-repeat,
-    write('База данных'),nl,nl,
-    write('1 - Данные о деревнях'),nl,
-    write('2 - Данные о техниках'),nl,
-    write('3 - Данные о персонажах'),nl,
+    write('Р‘Р°Р·Р° РґР°РЅРЅС‹С…'),nl,nl,
+    write('1 - Р”Р°РЅРЅС‹Рµ Рѕ РґРµСЂРµРІРЅСЏС…'),nl,
+    write('2 - Р”Р°РЅРЅС‹Рµ Рѕ С‚РµС…РЅРёРєР°С…'),nl,
+    write('3 - Р”Р°РЅРЅС‹Рµ Рѕ РїРµСЂСЃРѕРЅР°Р¶Р°С…'),nl,
     read(X),
     X<4,
     check(X).
@@ -19,31 +19,31 @@ check(3):-menu4.
 
 
 menu2:-repeat,
-    write('База данных о шиноби-деревнях'),nl,nl,
-    write('1 - Посмотреть данные о деревнях'),nl,
-    write('2 - Добавить данные в таблицу'),nl,
-    write('3 - Удалить данные из таблицы'),nl,
-    write('4 - Сохранить базу в файл'),nl,
+    write('Р‘Р°Р·Р° РґР°РЅРЅС‹С… Рѕ С€РёРЅРѕР±Рё-РґРµСЂРµРІРЅСЏС…'),nl,nl,
+    write('1 - РџРѕСЃРјРѕС‚СЂРµС‚СЊ РґР°РЅРЅС‹Рµ Рѕ РґРµСЂРµРІРЅСЏС…'),nl,
+    write('2 - Р”РѕР±Р°РІРёС‚СЊ РґР°РЅРЅС‹Рµ РІ С‚Р°Р±Р»РёС†Сѓ'),nl,
+    write('3 - РЈРґР°Р»РёС‚СЊ РґР°РЅРЅС‹Рµ РёР· С‚Р°Р±Р»РёС†С‹'),nl,
+    write('4 - РЎРѕС…СЂР°РЅРёС‚СЊ Р±Р°Р·Сѓ РІ С„Р°Р№Р»'),nl,
     read(X),
     X<5,
     process(X).
 
 menu3:-repeat,
-    write('База данных о техниках'),nl,nl,
-    write('1 - Посмотреть данные о техниках'),nl,
-    %write('2 - Добавить данные в таблицу'),nl,
-    write('2 - Удалить данные из таблицы'),nl,
-    write('3 - Сохранить базу в файл'),nl,
+    write('Р‘Р°Р·Р° РґР°РЅРЅС‹С… Рѕ С‚РµС…РЅРёРєР°С…'),nl,nl,
+    write('1 - РџРѕСЃРјРѕС‚СЂРµС‚СЊ РґР°РЅРЅС‹Рµ Рѕ С‚РµС…РЅРёРєР°С…'),nl,
+    %write('2 - Р”РѕР±Р°РІРёС‚СЊ РґР°РЅРЅС‹Рµ РІ С‚Р°Р±Р»РёС†Сѓ'),nl,
+    write('2 - РЈРґР°Р»РёС‚СЊ РґР°РЅРЅС‹Рµ РёР· С‚Р°Р±Р»РёС†С‹'),nl,
+    write('3 - РЎРѕС…СЂР°РЅРёС‚СЊ Р±Р°Р·Сѓ РІ С„Р°Р№Р»'),nl,
     read(X),
     X<5,
     process1(X).
 
 menu4:-repeat,
-    write('База данных персонажах'),nl,nl,
-    write('1 - Посмотреть данные о персонажах'),nl,
-    write('2 - Добавить данные в таблицу'),nl,
-    write('3 - Удалить данные из таблицы'),nl,
-    write('4 - Сохранить базу в файл'),nl,
+    write('Р‘Р°Р·Р° РґР°РЅРЅС‹С… РїРµСЂСЃРѕРЅР°Р¶Р°С…'),nl,nl,
+    write('1 - РџРѕСЃРјРѕС‚СЂРµС‚СЊ РґР°РЅРЅС‹Рµ Рѕ РїРµСЂСЃРѕРЅР°Р¶Р°С…'),nl,
+    write('2 - Р”РѕР±Р°РІРёС‚СЊ РґР°РЅРЅС‹Рµ РІ С‚Р°Р±Р»РёС†Сѓ'),nl,
+    write('3 - РЈРґР°Р»РёС‚СЊ РґР°РЅРЅС‹Рµ РёР· С‚Р°Р±Р»РёС†С‹'),nl,
+    write('4 - РЎРѕС…СЂР°РЅРёС‚СЊ Р±Р°Р·Сѓ РІ С„Р°Р№Р»'),nl,
     read(X),
     X<5,
     process2(X).
@@ -69,13 +69,13 @@ process2(4):-dbsave.
 
 
 viewdata1:- tech(_,X),
-    write("Название: "), write(X),nl,
+    write("РќР°Р·РІР°РЅРёРµ: "), write(X),nl,
     write('------------------------------------'),nl,fail.
 
 viewdata2:-tech(T,Y),village(Z,D), character(X,T,D),
-    write("Имя: "), write(X),nl,
-    write("Техника: "), write(Y),nl,
-    write("Деревня: "), write(Z),nl,
+    write("РРјСЏ: "), write(X),nl,
+    write("РўРµС…РЅРёРєР°: "), write(Y),nl,
+    write("Р”РµСЂРµРІРЅСЏ: "), write(Z),nl,
     write('------------------------------------'),nl,fail.
 
 
@@ -86,63 +86,63 @@ adddata:-!.
 means(X,X).
 
 viewdata:- village(X,_),
-    write("Название: "), write(X),nl,
+    write("РќР°Р·РІР°РЅРёРµ: "), write(X),nl,
     write('------------------------------------'),nl,fail.
 
-addvillage:-write("Добавить деревню"),nl,nl,
-    write("Название: "),
+addvillage:-write("Р”РѕР±Р°РІРёС‚СЊ РґРµСЂРµРІРЅСЋ"),nl,nl,
+    write("РќР°Р·РІР°РЅРёРµ: "),
     read(X),
     write("id: "), read(Y),
     checkidv(Y,F), F=0,
     assertz(village(X,Y));
-    write("Такой ID уже существует").
+    write("РўР°РєРѕР№ ID СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚").
 
 checkidv(X,F):- not(village(_,X)), F is 0; F is 1.
 
 addcharacter:-
-    write("Добавить персонажа"),nl,nl,
-    write("Имя: "),read(X),
-    write("деревня: "), read(Y),
+    write("Р”РѕР±Р°РІРёС‚СЊ РїРµСЂСЃРѕРЅР°Р¶Р°"),nl,nl,
+    write("РРјСЏ: "),read(X),
+    write("РґРµСЂРµРІРЅСЏ: "), read(Y),
     Y1 is Y,
-    write("техника"),read(Z),
+    write("С‚РµС…РЅРёРєР°"),read(Z),
     Z1 is Z,
     check(Y1,Z1,F), F=0,
     assertz(character(X,Z,Y)),
     write(X);
-    write("Ошибка, таких данных нет").
+    write("РћС€РёР±РєР°, С‚Р°РєРёС… РґР°РЅРЅС‹С… РЅРµС‚").
 
 check(X,Y,F):- village(_,X), tech(Y,_),!, F is 0;F is 1.
 
-deletevillage:- write('Удалить деревню'),nl,nl,
-    write('Напишите название деревни: '),
+deletevillage:- write('РЈРґР°Р»РёС‚СЊ РґРµСЂРµРІРЅСЋ'),nl,nl,
+    write('РќР°РїРёС€РёС‚Рµ РЅР°Р·РІР°РЅРёРµ РґРµСЂРµРІРЅРё: '),
     read(X),
     retract(village(X,Y)),
     retract(character(_,_,Y)),
     write('village deleted'),nl,nl,
     tell('C:/Users/Sofia/Downloads/mydata.pl'), listing(village),
     listing(character),listing(tech),
-    told, write('Таблица обновлена'),nl.
+    told, write('РўР°Р±Р»РёС†Р° РѕР±РЅРѕРІР»РµРЅР°'),nl.
 
-deletetech:- write('Удалить технику'),nl,nl,
-    write('Напишите название техники: '),
+deletetech:- write('РЈРґР°Р»РёС‚СЊ С‚РµС…РЅРёРєСѓ'),nl,nl,
+    write('РќР°РїРёС€РёС‚Рµ РЅР°Р·РІР°РЅРёРµ С‚РµС…РЅРёРєРё: '),
     read(X),
     retract(tech(Y,X)),
     retract(character(_,Y,_)),
     write('tech deleted'),nl,nl,
     tell('C:/Users/Sofia/Downloads/mydata.pl'), listing(village),
     listing(character),listing(tech),
-    told, write('Таблица обновлена'),nl.
+    told, write('РўР°Р±Р»РёС†Р° РѕР±РЅРѕРІР»РµРЅР°'),nl.
 
-deletecharacter:- write('Удалить персонажа'),nl,nl,
-    write('Напишите имя персонажа: '),
+deletecharacter:- write('РЈРґР°Р»РёС‚СЊ РїРµСЂСЃРѕРЅР°Р¶Р°'),nl,nl,
+    write('РќР°РїРёС€РёС‚Рµ РёРјСЏ РїРµСЂСЃРѕРЅР°Р¶Р°: '),
     read(X),
     retract(character(X,_,_)),
     write('character deleted'),nl,nl,
-    tell('C:/Users/Sofia/Desktop/Новая папка/SWI-Prolog/Indv5/mydata.pl'), listing(village),
+    tell('C:/Users/Sofia/Desktop/РќРѕРІР°СЏ РїР°РїРєР°/SWI-Prolog/Indv5/mydata.pl'), listing(village),
     listing(character),listing(tech),
-    told, write('Таблица обновлена'),nl.
+    told, write('РўР°Р±Р»РёС†Р° РѕР±РЅРѕРІР»РµРЅР°'),nl.
 
 
-dbsave:- tell('C:/Users/Sofia/Desktop/Новая папка/SWI-Prolog/Indv5/mydata.pl'), listing(village),listing(tech),listing(character),
-    told, write('База сохранена'),nl,fail.
+dbsave:- tell('C:/Users/Sofia/Desktop/РќРѕРІР°СЏ РїР°РїРєР°/SWI-Prolog/Indv5/mydata.pl'), listing(village),listing(tech),listing(character),
+    told, write('Р‘Р°Р·Р° СЃРѕС…СЂР°РЅРµРЅР°'),nl,fail.
 
