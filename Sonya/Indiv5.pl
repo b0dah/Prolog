@@ -80,10 +80,10 @@ viewdata2:-tech(T,Y),village(Z,D), character(X,T,D),
 
 
 
-adddata:- village(X,Y), asserta(village(X,Y)).
-adddata:-!.
+%% adddata:- village(X,Y), asserta(village(X,Y)).
+%% adddata:-!.
 
-means(X,X).
+%% means(X,X).
 
 viewdata:- village(X,_),
     write("Название: "), write(X),nl,

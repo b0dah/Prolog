@@ -21,7 +21,7 @@ writefacts:-
 %	которые встречаются в файле ровно один раз в том порядке, в котором они встретились в строке.
 
 %divide into a list of strings
-fileToListOfStrings(L) :- seen, see('/Users/bodah/dev/prolog/TextFiles/input1.txt'), readStringsFromFile([],[],L), seen.
+fileToListOfStrings(L) :- seen, see('/Users/bodah/dev/prolog/TextFiles/input.txt'), readStringsFromFile([],[],L), seen.
 	
 readStringsFromFile(T,R,L) :- get0(X), 
 (X<0, (T=[], L=R; name(T1, T), append(R, [T1], L)), ! ;
